@@ -1,8 +1,3 @@
-# Blog_website
-Sure! Here’s a template for a `README.md` file for a blog website. Feel free to customize it based on your specific needs:
-
----
-
 # Blog Website
 
 Welcome to the Blog Website repository! This is a project designed to provide a platform for creating, managing, and sharing blog posts. Below you'll find information on how to get started, how to contribute, and other relevant details.
@@ -115,10 +110,6 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 If you have any questions or suggestions, feel free to reach out to us:
 
-- **Email:** support@example.com
-- **Twitter:** [@your_twitter_handle](https://twitter.com/your_twitter_handle)
-- **GitHub Issues:** [Submit an Issue](https://github.com/your-username/blog-website/issues)
+- **Twitter:** [@Guptaji__ajay]([https://x.com/Guptaji__ajay])]
+- **GitHub Issues:** [Submit an Issue](https://github.com/SpiderAj18/Blog_website/issues)
 
----
-
-Feel free to add more sections or adjust the content to better fit your project’s specifics!
