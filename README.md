@@ -110,6 +110,6 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 If you have any questions or suggestions, feel free to reach out to us:
 
-- **Twitter:** [@Guptaji__ajay]([https://x.com/Guptaji__ajay])]
+- **Twitter:** [@Guptaji__ajay](https://x.com/Guptaji__ajay)
 - **GitHub Issues:** [Submit an Issue](https://github.com/SpiderAj18/Blog_website/issues)
 
