@@ -45,7 +45,7 @@ function Header() {
         <Navbar.Collapse className=" text-white">
             <Navbar.Link active href="/">Home</Navbar.Link>
             <Navbar.Link active href="/Dashboard">Dashboard</Navbar.Link>
-            <Navbar.Link active href="/About">About</Navbar.Link>
+            <Navbar.Link active href="/About">Aboutt</Navbar.Link>
             <Navbar.Link active href="/Projects">Projects</Navbar.Link>
                 
         </Navbar.Collapse>
