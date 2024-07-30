@@ -16,9 +16,19 @@ try {
   console.log("unable to connect to db:", error);
 }
 
-app.use('/api/user', userRoute);
-app.use('/api/auth', authRoute); // Corrected here
-
 app.listen(port, () => {
   console.log(`app is listening on port ${port}`);
 });
+app.use('/api/user', userRoute);
+app.use('/api/auth', authRoute); // Corrected here
+
+
+app.use((err,req,res,next)=>{
+    const statusCode =err.statusCode || 500;
+    const message = err.message ||'Internal server error';
+    res.status(statusCode).json({
+        success : false,
+        statusCode,
+        message
+    })
+})

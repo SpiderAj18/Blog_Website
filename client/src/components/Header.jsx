@@ -7,7 +7,7 @@ import { FaMoon } from "react-icons/fa";
 function Header() {
   return (
     <Navbar fluid className="bg-zinc-800 text-white border-b-2">
-      <Link to="/" className="logo self-center whitespace-nowrap">
+      <Link to="/" className="logo self-center whitespace-nowrap font-semibold">
         <span className=" bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-700 rounded-md px-2 py-1">
           Spider's
         </span>

@@ -1,7 +1,8 @@
+import { errorHandler } from "../../utils/error.js";
 import User from "../models/user.model.js";
 import bcriptjs from 'bcryptjs'
 
-export const signup = async (req, res) => {
+export const signup = async (req, res,next) => {
     const { username, email, password } = req.body;
     const hashedpassword = bcriptjs.hashSync(password,10);
 
@@ -17,7 +18,7 @@ export const signup = async (req, res) => {
         if (error.code === 11000) {
             // Duplicate key error
             const field = Object.keys(error.keyPattern)[0];
-            res.status(400).send({ message: `${field} already exists` });
+            next(errorHandler(400,`${field} already exists`));
         } else {
             res.status(500).send({ message: 'Server error' });
         }
