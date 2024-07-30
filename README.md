@@ -1,6 +1,6 @@
 # Blog Website
 
-Welcome to the Blog Website repository! This is a project designed to provide a platform for creating, managing, and sharing blog posts. Below you'll find information on how to get started, how to contribute, and other relevant details.
+Welcome to the Blog Website repository! This is a project designed to provide a platform for creating, managing, and sharing blog posts. Below you'll find information on how to get started, how to contribute, and other relevant details.  
 
 ## Table of Contents
 
