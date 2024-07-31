@@ -1,53 +1,17 @@
-import { TextInput, Button, Label, Alert } from "flowbite-react";
+import { TextInput,Button, Label } from "flowbite-react";
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { AiFillGoogleCircle } from "react-icons/ai";
 
-function Signup() {
-  const [formData, setFormData] = useState({
-    username: '',
-    email: '',
-    password: '',
-  });
-  const [error, setError] = useState(null);
-  const [loading,setLoading] = useState(false) 
-  const [success, setSuccess] = useState(false);
-
-  const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.id]: e.target.value.trim()});
-    console.log(e.target.value);
-  };
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    try {
-      if(!formData.username ||!formData.email||!formData.password){
-        return setError("all fields are required")
-      }
-      const res = await fetch("/api/auth/signup", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(formData),
-      });
-
-      if (!res.ok) {
-        throw new Error(`HTTP error! status: ${res.status}`);
-      }
-
-      const data = await res.json();
-      console.log("Server response:", data);
-      setSuccess(true);
-      setError(null);
-    } catch (error) {
-      console.error("Error during signup", error);
-      setError(error.message);
-      setSuccess(false);
-    }
-  };
-
+function Signin() {
+  const [error,setError] = useState(null);
+  const [loading,setLoading] = useState(null);
+  const [success,setSuccess] = useState(null);
+  const handleChange = ()=>{};
+  const handleSubmit =() =>{};
   return (
     <>
-     <div className='min-h-screen mt-20 ' >
+    <div className='min-h-screen mt-32' >
       <div className='flex p-3 max-w-3xl mx-auto flex-col md:flex-row md:items-center gap-5'>
         {/* left */}
         <div className='flex-1'>
@@ -72,15 +36,6 @@ function Signup() {
                 type='text'
                 placeholder='Username'
                 id='username'
-                onChange={handleChange}
-              />
-            </div>
-            <div>
-              <Label value='Your email' />
-              <TextInput
-                type='email'
-                placeholder='name@company.com'
-                id='email'
                 onChange={handleChange}
               />
             </div>
@@ -120,8 +75,8 @@ function Signup() {
 
           <div className='flex gap-2 text-sm mt-5'>
             <span>Have an account?</span>
-            <Link to='/signin' className='text-blue-500'>
-              Sign In
+            <Link to='/signup' className='text-blue-500'>
+              Sign Up
             </Link>
           </div>
          
@@ -131,7 +86,7 @@ function Signup() {
            
             
     </>
-  );
+  )
 }
 
-export default Signup;
+export default Signin
