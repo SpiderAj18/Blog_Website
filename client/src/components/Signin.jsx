@@ -1,17 +1,53 @@
-import { TextInput,Button, Label } from "flowbite-react";
+import { TextInput, Button, Label, Alert,Spinner } from "flowbite-react";
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { AiFillGoogleCircle } from "react-icons/ai";
 
-function Signin() {
-  const [error,setError] = useState(null);
-  const [loading,setLoading] = useState(null);
-  const [success,setSuccess] = useState(null);
-  const handleChange = ()=>{};
-  const handleSubmit =() =>{};
+function SignIn() {
+  const [formData, setFormData] = useState({});
+  const [error, setError] = useState(null);
+  const [loading,setLoading] = useState(false) 
+  const navigation = useNavigate();
+  const [success, setSuccess] = useState(false);
+
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.id]: e.target.value.trim()});
+    console.log(e.target.value);
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    if(!formData.email||!formData.password){
+      return setError("all fields are required")
+    }
+      try {
+        setLoading(true);
+       const res = await fetch("/api/auth/signin", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formData),
+      });
+
+      if (!res.ok) {
+        throw new Error(`HTTP error! status: ${res.status}`);
+      }
+
+      const data = await res.json();
+      setLoading(false);
+      navigation('/home')
+      console.log("Server response:", data);
+      setSuccess(true);
+      setError(null);
+    } catch (error) {
+      console.error("Error during signup", error);
+      setError(error.message);
+      setSuccess(false);
+    }
+  };
+
   return (
     <>
-    <div className='min-h-screen mt-32' >
+     <div className='min-h-screen mt-20 ' >
       <div className='flex p-3 max-w-3xl mx-auto flex-col md:flex-row md:items-center gap-5'>
         {/* left */}
         <div className='flex-1'>
@@ -22,7 +58,7 @@ function Signin() {
             Blog
           </Link>
           <p className='text-sm mt-5'>
-            This is a demo project. You can sign up with your email and password
+            This is a demo project. You can sign in with your email and password
             or with Google.
           </p>
         </div>
@@ -31,11 +67,11 @@ function Signin() {
         <div className='flex-1'>
           <form className='flex flex-col gap-4' onSubmit={handleSubmit}>
             <div>
-              <Label value='Your username' />
+              <Label value='Your email' />
               <TextInput
-                type='text'
-                placeholder='Username'
-                id='username'
+                type='email'
+                placeholder='name@company.com'
+                id='email'
                 onChange={handleChange}
               />
             </div>
@@ -59,7 +95,7 @@ function Signin() {
                   <span className='pl-3'>Loading...</span>
                 </>
               ) : (
-                'Sign Up'
+                'Sign In'
               )}
             </Button>
             <Button 
@@ -86,7 +122,7 @@ function Signin() {
            
             
     </>
-  )
+  );
 }
 
-export default Signin
+export default SignIn;
