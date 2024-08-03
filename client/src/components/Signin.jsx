@@ -2,11 +2,15 @@ import { TextInput, Button, Label, Alert,Spinner } from "flowbite-react";
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { AiFillGoogleCircle } from "react-icons/ai";
+import userSlice, {signInStart,signInSuccess,signInFailure} from "../redux/user/userSlice";
+import { useDispatch, useSelector } from "react-redux";
+
 
 function SignIn() {
   const [formData, setFormData] = useState({});
-  const [error, setError] = useState(null);
-  const [loading,setLoading] = useState(false) 
+  
+  const {loading,error:errorMessage} = useSelector(state=>state.user)
+  const dispatch= useDispatch();
   const navigation = useNavigate();
   const [success, setSuccess] = useState(false);
 
@@ -18,10 +22,10 @@ function SignIn() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     if(!formData.email||!formData.password){
-      return setError("all fields are required")
+      return dispatch(signInFailure("please fill out all the fields"))
     }
       try {
-        setLoading(true);
+        dispatch(signInStart())
        const res = await fetch("/api/auth/signin", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -33,15 +37,15 @@ function SignIn() {
       }
 
       const data = await res.json();
-      setLoading(false);
+      if(data.success===false){
+        dispatch(signInFailure(data.message))
+      }
       navigation('/home')
       console.log("Server response:", data);
-      setSuccess(true);
-      setError(null);
+      dispatch(signInSuccess())
     } catch (error) {
-      console.error("Error during signup", error);
-      setError(error.message);
-      setSuccess(false);
+      console.error("Error during signin", error);
+      dispatch(signInFailure());
     }
   };
 
@@ -106,8 +110,8 @@ function SignIn() {
            
           </form>
 
-          {error && <p className="text-red-600 mt-2">{error}</p>}
-            {success && <p className="text-green-600 mt-2">Signup successful!</p>}
+            {errorMessage && <p className="text-red-600 mt-2">{errorMessage}</p>}
+            {success && <p className="text-green-600 mt-2">Signin successful!</p>}
 
           <div className='flex gap-2 text-sm mt-5'>
             <span>Have an account?</span>
