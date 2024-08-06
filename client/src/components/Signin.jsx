@@ -1,9 +1,10 @@
 import { TextInput, Button, Label, Alert,Spinner } from "flowbite-react";
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { AiFillGoogleCircle } from "react-icons/ai";
+
 import userSlice, {signInStart,signInSuccess,signInFailure} from "../redux/user/userSlice";
 import { useDispatch, useSelector } from "react-redux";
+import OAuth from "./OAuth";
 
 
 function SignIn() {
@@ -102,11 +103,7 @@ function SignIn() {
                 'Sign In'
               )}
             </Button>
-            <Button 
-              
-              gradientDuoTone='purpleToPink'
-              outline
-            ><AiFillGoogleCircle className="mt-.6 mx-2 text-lg"/>Sign up with google</Button>
+            <OAuth/>
            
           </form>
 

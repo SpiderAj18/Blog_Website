@@ -2,6 +2,7 @@ import { TextInput, Button, Label, Alert } from "flowbite-react";
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { AiFillGoogleCircle } from "react-icons/ai";
+import OAuth from "./OAuth";
 
 function Signup() {
   const [formData, setFormData] = useState({
@@ -107,12 +108,8 @@ function Signup() {
                 'Sign Up'
               )}
             </Button>
-            <Button 
               
-              gradientDuoTone='purpleToPink'
-              outline
-            ><AiFillGoogleCircle className="mt-.6 mx-2 text-lg"/>Sign up with google</Button>
-           
+            <OAuth/>
           </form>
 
           {error && <p className="text-red-600 mt-2">{error}</p>}
