@@ -2,14 +2,17 @@ import React from "react";
 import { Link, useLocation } from "react-router-dom";
 import { Avatar, Button, Dropdown, Navbar, TextInput } from "flowbite-react";
 import { AiOutlineSearch } from "react-icons/ai";
-import { FaMoon } from "react-icons/fa";
-import { useSelector } from 'react-redux';
+import { FaMoon, FaSun } from "react-icons/fa";
+import { useDispatch, useSelector } from 'react-redux';
+import { toggleTheme } from "../redux/theme/themeSlice.js";
+
 
 function Header() {
   const path = useLocation().pathname;
-  console.log(path);
+  const dispatch = useDispatch()
   const { currentUser } = useSelector(state => state.user);
-  console.log(currentUser);
+  const { theme } = useSelector((state) => state.theme);
+
   
   return (
     <Navbar fluid className="bg-zinc-800 text-white border-b-2">
@@ -38,26 +41,32 @@ function Header() {
           outline
           gradientDuoTone="purpleToBlue"
           pill
+          onClick={()=>dispatch(toggleTheme())}
         >
-          <FaMoon />
+          { theme === 'dark' ? <FaSun/> : <FaMoon /> }
         </Button>
+        {/* checking user is logedin or not */}
+       
         {currentUser ? (
           <Dropdown
             arrowIcon={false}
+            pill
             label={
               <Avatar
+                alt="user"
                 size="sm"
-                img={currentUser.profilePicture || 'defaultProfilePic.jpg'}
+                img={currentUser.profilePicture }
+                rounded
                 className="rounded-full"
               />
             }
           >
             <Dropdown.Header>
-              <span className="block text-sm">{currentUser.username}</span>
+              <span className="block text-sm">@{currentUser.username}</span>
               <span className="block truncate text-sm font-medium">{currentUser.email}</span>
             </Dropdown.Header>
             <Dropdown.Item>
-              <Link to="/profile">Profile</Link>
+              <Link to={"/dashboard?tab=profile"}>Profile</Link>
             </Dropdown.Item>
             <Dropdown.Item>
               <Link to="/settings">Settings</Link>
