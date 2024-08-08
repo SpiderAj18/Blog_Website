@@ -13,7 +13,7 @@ function OAuth() {
   const auth = getAuth(app);
   const handleGoogleClick = async () => {
     const provider = new GoogleAuthProvider();
-    provider.getCustomParameters({ prompt: "select_account" });
+    provider.getCustomParameters({prompt: "select_account"});
     try {
       const resultFromGoogle = await signInWithPopup(auth, provider);
       const res = await fetch("/api/auth/google", {
@@ -22,12 +22,13 @@ function OAuth() {
         body: JSON.stringify({
           name: resultFromGoogle.user.displayName,
           email: resultFromGoogle.user.email,
-          googlePhotoUrl: resultFromGoogle.user.photoURL,
+          googlePhotoUrl: resultFromGoogle.user.photoUrl,
         }),
       });
-      const data = await res.json;
+      const data = await res.json();
+      console.log(data);
       if (res.ok) {
-        disptach(signInSuccess(data));
+        return disptach(signInSuccess(data));
         navigate("/");
       }
     } catch (error) {
@@ -41,6 +42,7 @@ function OAuth() {
         gradientDuoTone="purpleToPink"
         outline
         onClick={handleGoogleClick}
+        type="button"
       >
         <AiFillGoogleCircle className="mt-.6 mx-2 text-lg" />
         Sign up with google

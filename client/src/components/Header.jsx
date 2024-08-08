@@ -1,10 +1,16 @@
 import React from "react";
-import { Link } from "react-router-dom";
-import { Button, Navbar, TextInput } from "flowbite-react";
+import { Link, useLocation } from "react-router-dom";
+import { Avatar, Button, Dropdown, Navbar, TextInput } from "flowbite-react";
 import { AiOutlineSearch } from "react-icons/ai";
 import { FaMoon } from "react-icons/fa";
+import { useSelector } from 'react-redux';
 
 function Header() {
+  const path = useLocation().pathname;
+  console.log(path);
+  const { currentUser } = useSelector(state => state.user);
+  console.log(currentUser);
+  
   return (
     <Navbar fluid className="bg-zinc-800 text-white border-b-2">
       <Link to="/" className="logo self-center whitespace-nowrap font-semibold">
@@ -28,29 +34,65 @@ function Header() {
 
       <div className="flex gap-2 md:order-2 items-center">
         <Button
-          className="w-12 h-9 hidden sm:inline "
+          className="w-12 h-9 hidden sm:inline"
           outline
           gradientDuoTone="purpleToBlue"
           pill
         >
           <FaMoon />
         </Button>
-        <Link to="/signin">
-          <Button className=" " outline gradientDuoTone="purpleToBlue" pill>
-            Sign in
-          </Button>
-        </Link>
-            <Navbar.Toggle/>
+        {currentUser ? (
+          <Dropdown
+            arrowIcon={false}
+            label={
+              <Avatar
+                size="sm"
+                img={currentUser.profilePicture || 'defaultProfilePic.jpg'}
+                className="rounded-full"
+              />
+            }
+          >
+            <Dropdown.Header>
+              <span className="block text-sm">{currentUser.username}</span>
+              <span className="block truncate text-sm font-medium">{currentUser.email}</span>
+            </Dropdown.Header>
+            <Dropdown.Item>
+              <Link to="/profile">Profile</Link>
+            </Dropdown.Item>
+            <Dropdown.Item>
+              <Link to="/settings">Settings</Link>
+            </Dropdown.Item>
+            <Dropdown.Divider />
+            <Dropdown.Item>
+              <Link to="/signout">Sign out</Link>
+            </Dropdown.Item>
+          </Dropdown>
+        ) : (
+          <Link to="/signin">
+            <Button outline gradientDuoTone="purpleToBlue" pill>
+              Sign in
+            </Button>
+          </Link>
+        )}
+        <Navbar.Toggle />
       </div>
-        <Navbar.Collapse className=" text-white">
-            <Navbar.Link active href="/">Home</Navbar.Link>
-            <Navbar.Link active href="/Dashboard">Dashboard</Navbar.Link>
-            <Navbar.Link active href="/About">Aboutt</Navbar.Link>
-            <Navbar.Link active href="/Projects">Projects</Navbar.Link>
-                
-        </Navbar.Collapse>
+      <Navbar.Collapse className=" text-white">
+        <Navbar.Link href="/" active={path === "/"}>
+          Home
+        </Navbar.Link>
+        <Navbar.Link href="/Dashboard" active={path === "/Dashboard"}>
+          Dashboard
+        </Navbar.Link>
+        <Navbar.Link href="/About" active={path === "/About"}>
+          About
+        </Navbar.Link>
+        <Navbar.Link href="/Projects" active={path === "/Projects"}>
+          Projects
+        </Navbar.Link>
+      </Navbar.Collapse>
     </Navbar>
   );
 }
 
 export default Header;
+ 

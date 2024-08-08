@@ -76,8 +76,8 @@ export const google = async(req,res,next)=>{
         username: name.toLowerCase().split(" ").join('')+ Math.random().toString(9).slice(-4),
         email,
         password:hashedpassword,
-        profilePicture:googlePhotoUrl
-      })
+        profilePicture : googlePhotoUrl,
+      });
       await newUser.save()
       const token = jwt.sign({id:newUser._id},process.env.SECRETKEY);
       const {password, ...rest} = newUser._doc;
@@ -85,6 +85,6 @@ export const google = async(req,res,next)=>{
 
     }
   } catch (error) {
-    next(error);
+    errorHandler(error)
   }
 }
