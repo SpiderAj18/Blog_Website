@@ -55,7 +55,7 @@ function Header() {
               <Avatar
                 alt="user"
                 size="sm"
-                img={currentUser.profilePicture }
+                img={currentUser.profilePicture}
                 rounded
                 className="rounded-full"
               />
@@ -66,7 +66,7 @@ function Header() {
               <span className="block truncate text-sm font-medium">{currentUser.email}</span>
             </Dropdown.Header>
             <Dropdown.Item>
-              <Link to={"/dashboard?tab=profile"}>Profile</Link>
+              <Link to={"/Dashboard?tab=profile"}>Profile</Link>
             </Dropdown.Item>
             <Dropdown.Item>
               <Link to="/settings">Settings</Link>
